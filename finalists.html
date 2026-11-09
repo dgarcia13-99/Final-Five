@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>A(I) Can Do That!? — EMEA Finalists</title>
+<style>
+:root {
+  --sap-blue:        #0070F2;
+  --sap-blue-dim:    #0057BD;
+  --sap-blue-bright: #1A8FFF;
+  --sap-blue-glow:   rgba(0,112,242,0.18);
+  --sap-blue-subtle: rgba(0,112,242,0.09);
+
+  --bg-base:    #0a0c10;
+  --bg-card:    #111418;
+  --bg-card2:   #161b22;
+  --bg-hover:   #1c2230;
+
+  --border:     rgba(255,255,255,0.07);
+  --border-hi:  rgba(0,112,242,0.45);
+
+  --txt-1:    #e8edf3;
+  --txt-2:    #8b97a8;
+  --txt-3:    #5a6475;
+
+  --cr-creativity:    #0070F2;
+  --cr-replicability: #00B4D8;
+  --cr-storytelling:  #7C3AED;
+  --cr-impact:        #10B981;
+
+  --gold:   #F59E0B;
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"72","72full",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg-base);
+  color:var(--txt-1);
+  min-height:100vh;
+  line-height:1.6;
+}
+
+/* ── Top bar ── */
+.sap-topbar{
+  height:44px;
+  background:#000;
+  display:flex;
+  align-items:center;
+  padding:0 24px;
+  gap:10px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  position:sticky;top:0;z-index:100;
+}
+.sap-logo{
+  font-weight:700;font-size:18px;letter-spacing:-0.5px;
+  color:#fff;font-family:"72","72full",sans-serif;
+}
+.sap-logo span{color:var(--sap-blue);}
+.topbar-label{
+  font-size:12px;color:var(--txt-3);
+  border-left:1px solid rgba(255,255,255,0.12);
+  padding-left:12px;margin-left:2px;
+  letter-spacing:0.04em;text-transform:uppercase;
+}
+
+/* ── Hero ── */
+.hero{
+  text-align:center;
+  padding:72px 24px 56px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,112,242,0.13) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-block;
+  font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--sap-blue-bright);
+  background:rgba(0,112,242,0.1);
+  border:1px solid rgba(0,112,242,0.25);
+  border-radius:20px;padding:4px 14px;margin-bottom:20px;
+}
+.hero h1{
+  font-size:clamp(28px,5vw,52px);
+  font-weight:700;letter-spacing:-1px;
+  line-height:1.15;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,#e8edf3 30%,var(--sap-blue-bright) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:16px;color:var(--txt-2);max-width:600px;margin:0 auto 32px;
+}
+.hero-meta{
+  display:flex;gap:24px;justify-content:center;flex-wrap:wrap;
+}
+.hero-stat{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.hero-stat-num{
+  font-size:28px;font-weight:700;color:var(--sap-blue-bright);
+}
+.hero-stat-lbl{
+  font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--txt-3);
+}
+
+/* ── Grid ── */
+.grid-section{
+  max-width:1100px;margin:0 auto;padding:0 20px 80px;
+}
+.section-title{
+  font-size:13px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--txt-3);margin-bottom:28px;padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.finalists-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+}
+
+/* ── Finalist Card ── */
+.finalist-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor:default;
+  display:flex;
+  flex-direction:column;
+}
+.finalist-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--border-hi);
+  box-shadow:0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,112,242,0.15);
+}
+
+/* card accent line at top */
+.finalist-card::before{
+  content:'';display:block;height:3px;
+  background:linear-gradient(90deg,var(--sap-blue),var(--sap-blue-bright),transparent);
+}
+
+.card-header{
+  padding:20px 20px 16px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.card-avatar{
+  width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;font-weight:700;
+  flex-shrink:0;
+  background:linear-gradient(135deg,var(--sap-blue),var(--sap-blue-dim));
+  color:#fff;
+  letter-spacing:-0.5px;
+}
+.card-id{
+  flex:1;
+}
+.card-name{
+  font-size:17px;font-weight:700;color:var(--txt-1);
+  line-height:1.2;margin-bottom:3px;
+}
+.card-location{
+  font-size:12px;color:var(--txt-3);letter-spacing:0.03em;
+  display:flex;align-items:center;gap:4px;
+}
+.flag{font-size:15px;}
+.card-score-badge{
+  font-size:13px;font-weight:700;
+  padding:3px 10px;border-radius:20px;
+  background:rgba(0,112,242,0.12);
+  border:1px solid rgba(0,112,242,0.3);
+  color:var(--sap-blue-bright);
+  white-space:nowrap;
+}
+
+/* project title */
+.card-project{
+  padding:0 20px 12px;
+}
+.card-project-name{
+  font-size:14px;font-weight:600;
+  color:var(--sap-blue-bright);
+  margin-bottom:4px;
+}
+.card-hook{
+  font-size:13px;color:var(--txt-2);font-style:italic;
+  line-height:1.4;
+}
+
+/* divider */
+.card-divider{height:1px;background:var(--border);margin:0 20px;}
+
+/* score bars */
+.card-scores{padding:16px 20px;}
+.score-row{
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;
+}
+.score-row:last-child{margin-bottom:0;}
+.score-label{
+  font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--txt-3);width:96px;flex-shrink:0;
+}
+.score-bar-track{
+  flex:1;height:5px;background:rgba(255,255,255,0.06);
+  border-radius:3px;overflow:hidden;
+}
+.score-bar-fill{
+  height:100%;border-radius:3px;
+  transition:width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.score-num{
+  font-size:12px;font-weight:600;
+  width:16px;text-align:right;
+}
+
+/* why section */
+.card-why{
+  padding:14px 20px 20px;
+  flex:1;
+  display:flex;flex-direction:column;gap:10px;
+}
+.why-block{
+  background:var(--bg-card2);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;
+  border:1px solid var(--border);
+}
+.why-title{
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--txt-3);margin-bottom:6px;
+}
+.why-text{
+  font-size:13px;line-height:1.55;color:var(--txt-2);
+}
+.why-text strong{color:var(--txt-1);}
+
+/* tags */
+.card-tags{
+  padding:0 20px 18px;
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+.tag{
+  font-size:11px;padding:3px 9px;border-radius:12px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  color:var(--txt-3);
+}
+
+/* finalist number badge */
+.finalist-number{
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--gold);
+  font-weight:600;
+  display:flex;align-items:center;gap:5px;
+  padding:12px 20px 0;
+}
+.finalist-star::before{content:'★';}
+
+/* ── Footer ── */
+footer{
+  text-align:center;padding:32px 20px;
+  border-top:1px solid var(--border);
+  color:var(--txt-3);font-size:12px;
+}
+footer a{color:var(--sap-blue-bright);text-decoration:none;}
+
+/* ── Rubric legend ── */
+.rubric-bar{
+  max-width:1100px;margin:0 auto 36px;
+  padding:0 20px;
+}
+.rubric-inner{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:14px 20px;
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+}
+.rubric-title{
+  font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--txt-3);margin-right:8px;flex-shrink:0;
+}
+.rubric-item{display:flex;align-items:center;gap:6px;}
+.rubric-dot{width:8px;height:8px;border-radius:50%;}
+.rubric-item-label{font-size:12px;color:var(--txt-2);}
+
+/* ── Responsive ── */
+@media(max-width:600px){
+  .hero{padding:48px 16px 40px;}
+  .hero-meta{gap:16px;}
+  .finalists-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="sap-topbar">
+  <div class="sap-logo">S<span>A</span>P</div>
+  <div class="topbar-label">A(I) Can Do That!? &mdash; EMEA 2026</div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-eyebrow">EMEA Final Five</div>
+  <h1>Meet the Finalists</h1>
+  <p class="hero-sub">
+    From 159 submissions across EMEA, these five rose to the top — each showcasing a creative,
+    replicable, and high-impact use of AI in their daily work at SAP.
+  </p>
+  <div class="hero-meta">
+    <div class="hero-stat">
+      <div class="hero-stat-num">159</div>
+      <div class="hero-stat-lbl">Submissions</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">111</div>
+      <div class="hero-stat-lbl">Valid Entries</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">10</div>
+      <div class="hero-stat-lbl">Top 10</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">5</div>
+      <div class="hero-stat-lbl">Finalists</div>
+    </div>
+  </div>
+</section>
+
+<!-- Rubric legend -->
+<div class="rubric-bar">
+  <div class="rubric-inner">
+    <span class="rubric-title">Scored on</span>
+    <div class="rubric-item">
+      <div class="rubric-dot" style="background:var(--cr-creativity)"></div>
+      <span class="rubric-item-label">Creativity</span>
+    </div>
+    <div class="rubric-item">
+      <div class="rubric-dot" style="background:var(--cr-replicability)"></div>
+      <span class="rubric-item-label">Replicability</span>
+    </div>
+    <div class="rubric-item">
+      <div class="rubric-dot" style="background:var(--cr-storytelling)"></div>
+      <span class="rubric-item-label">Storytelling</span>
+    </div>
+    <div class="rubric-item">
+      <div class="rubric-dot" style="background:var(--cr-impact)"></div>
+      <span class="rubric-item-label">Impact</span>
+    </div>
+    <span class="rubric-item-label" style="margin-left:auto;color:var(--txt-3);font-size:11px;">Max score: 16 pts &nbsp;(4 per criterion)</span>
+  </div>
+</div>
+
+<!-- Finalists grid -->
+<div class="grid-section">
+  <div class="section-title">The Final Five &mdash; Ranked by Score</div>
+
+  <div class="finalists-grid">
+
+    <!-- ── 1. Annabelle Ferrer ── -->
+    <div class="finalist-card">
+      <div class="finalist-number"><span class="finalist-star"></span> Finalist #1 &mdash; 15 / 16</div>
+      <div class="card-header">
+        <div class="card-avatar">AF</div>
+        <div class="card-id">
+          <div class="card-name">Annabelle Ferrer</div>
+          <div class="card-location"><span class="flag">🇫🇷</span> France</div>
+        </div>
+        <div class="card-score-badge">15 / 16</div>
+      </div>
+
+      <div class="card-project">
+        <div class="card-project-name">The RFP Quest &mdash; Pre-Sales as a Video Game</div>
+        <div class="card-hook">"Answering RFPs manually — oh so 2025. Boss level unlocked."</div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-scores">
+        <div class="score-row">
+          <div class="score-label">Creativity</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-creativity);"></div></div>
+          <div class="score-num" style="color:var(--cr-creativity);">4</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Replicability</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:75%;background:var(--cr-replicability);"></div></div>
+          <div class="score-num" style="color:var(--cr-replicability);">3</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Storytelling</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-storytelling);"></div></div>
+          <div class="score-num" style="color:var(--cr-storytelling);">4</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Impact</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-impact);"></div></div>
+          <div class="score-num" style="color:var(--cr-impact);">4</div>
+        </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-why">
+        <div class="why-block">
+          <div class="why-title">What they built</div>
+          <div class="why-text">
+            A video-game framing for the entire pre-sales lifecycle — from RFP hotzone mapping to competitor intel, storytelling, demo generation, data loading, and agentic workflows. Tools span <strong>EKX, Gemini Notebook, Claude Code, Agent Factory, and Joule</strong>.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it ranked in the Top 10</div>
+          <div class="why-text">
+            One of the most creative framings in the competition. The video-game metaphor made a complex multi-tool workflow immediately compelling, and the moment customers' "eyes widen" became a vivid climax. Strong storytelling and measurable impact pushed it to the top tier.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it made the Final Five</div>
+          <div class="why-text">
+            Annabelle demonstrated <strong>the broadest AI tool stack</strong> of any finalist — five tools working across the full demo lifecycle. The bold, original framing set a new bar for how AI work can be communicated, and the practical impact on pre-sales efficiency was clear.
+          </div>
+        </div>
+      </div>
+
+      <div class="card-tags">
+        <span class="tag">Pre-Sales</span>
+        <span class="tag">EKX</span>
+        <span class="tag">Claude Code</span>
+        <span class="tag">Joule</span>
+        <span class="tag">Agent Factory</span>
+        <span class="tag">Gemini</span>
+      </div>
+    </div>
+
+    <!-- ── 2. Cagatay Ozak ── -->
+    <div class="finalist-card">
+      <div class="finalist-number"><span class="finalist-star"></span> Finalist #2 &mdash; 15 / 16</div>
+      <div class="card-header">
+        <div class="card-avatar">CO</div>
+        <div class="card-id">
+          <div class="card-name">Cagatay Ozak</div>
+          <div class="card-location"><span class="flag">🇹🇷</span> Türkiye</div>
+        </div>
+        <div class="card-score-badge">15 / 16</div>
+      </div>
+
+      <div class="card-project">
+        <div class="card-project-name">Pre-Sales Advisor — 2,000+ Downloads</div>
+        <div class="card-hook">"30 minutes to a customer meeting. Your next meeting is already waiting."</div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-scores">
+        <div class="score-row">
+          <div class="score-label">Creativity</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-creativity);"></div></div>
+          <div class="score-num" style="color:var(--cr-creativity);">4</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Replicability</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:75%;background:var(--cr-replicability);"></div></div>
+          <div class="score-num" style="color:var(--cr-replicability);">3</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Storytelling</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-storytelling);"></div></div>
+          <div class="score-num" style="color:var(--cr-storytelling);">4</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Impact</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-impact);"></div></div>
+          <div class="score-num" style="color:var(--cr-impact);">4</div>
+        </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-why">
+        <div class="why-block">
+          <div class="why-title">What they built</div>
+          <div class="why-text">
+            A Pre-Sales Advisor skill on <strong>Joule Hub</strong> that pulls from <strong>200+ data sources in parallel</strong> — shelfware, AI feature usage, support cases, market intelligence, contracts, and renewals — compiling a complete account briefing in minutes.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it ranked in the Top 10</div>
+          <div class="why-text">
+            The opening stat ("2,000+ SAP colleagues downloaded this skill") made the impact undeniable. The breadth of data sources, combined with a tight personal narrative about time pressure, delivered a textbook high-scoring submission.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it made the Final Five</div>
+          <div class="why-text">
+            <strong>Proven at scale</strong> — this isn't a demo, it's a tool already adopted across EMEA. No other finalist matched the combination of real-world adoption data, technical breadth, and delivery urgency. A rare case where the numbers speak for themselves.
+          </div>
+        </div>
+      </div>
+
+      <div class="card-tags">
+        <span class="tag">Pre-Sales</span>
+        <span class="tag">Joule Hub</span>
+        <span class="tag">200+ Data Sources</span>
+        <span class="tag">Scale</span>
+        <span class="tag">Skill</span>
+      </div>
+    </div>
+
+    <!-- ── 3. Sam Renshaw ── -->
+    <div class="finalist-card">
+      <div class="finalist-number"><span class="finalist-star"></span> Finalist #3 &mdash; 15 / 16</div>
+      <div class="card-header">
+        <div class="card-avatar">SR</div>
+        <div class="card-id">
+          <div class="card-name">Sam Renshaw</div>
+          <div class="card-location"><span class="flag">🇬🇧</span> United Kingdom</div>
+        </div>
+        <div class="card-score-badge">15 / 16</div>
+      </div>
+
+      <div class="card-project">
+        <div class="card-project-name">Autonomous SIM — Customers Inside the Enterprise</div>
+        <div class="card-hook">"No slides, no pre-recorded demos. Just 115 real agents and 12 quarters of strategy."</div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-scores">
+        <div class="score-row">
+          <div class="score-label">Creativity</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-creativity);"></div></div>
+          <div class="score-num" style="color:var(--cr-creativity);">4</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Replicability</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:75%;background:var(--cr-replicability);"></div></div>
+          <div class="score-num" style="color:var(--cr-replicability);">3</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Storytelling</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-storytelling);"></div></div>
+          <div class="score-num" style="color:var(--cr-storytelling);">4</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Impact</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-impact);"></div></div>
+          <div class="score-num" style="color:var(--cr-impact);">4</div>
+        </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-why">
+        <div class="why-block">
+          <div class="why-title">What they built</div>
+          <div class="why-text">
+            A simulation game built in <strong>Claude</strong> that puts customers <em>inside</em> the autonomous enterprise. Players run 12 quarters of business strategy, tracking <strong>revenue, cost, and carbon</strong> metrics across 115 real agents — with a live leaderboard.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it ranked in the Top 10</div>
+          <div class="why-text">
+            Completely original format. No other submission reinvented the customer engagement model itself. Using AI to turn a passive demo into an active game — with real business metrics — was a conceptual leap the judges could not ignore.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it made the Final Five</div>
+          <div class="why-text">
+            Sam built an entirely <strong>new sales engagement format</strong>. Where others used AI to work faster, Sam used it to change the experience of selling itself. The Autonomous SIM is the most forward-looking entry in the competition — and the most fun.
+          </div>
+        </div>
+      </div>
+
+      <div class="card-tags">
+        <span class="tag">Claude</span>
+        <span class="tag">Simulation</span>
+        <span class="tag">115 Agents</span>
+        <span class="tag">Customer Engagement</span>
+        <span class="tag">Autonomous Enterprise</span>
+      </div>
+    </div>
+
+    <!-- ── 4. Christophe Bernard ── -->
+    <div class="finalist-card">
+      <div class="finalist-number"><span class="finalist-star"></span> Finalist #4 &mdash; 14 / 16</div>
+      <div class="card-header">
+        <div class="card-avatar">CB</div>
+        <div class="card-id">
+          <div class="card-name">Christophe Bernard</div>
+          <div class="card-location"><span class="flag">🇫🇷</span> France</div>
+        </div>
+        <div class="card-score-badge">14 / 16</div>
+      </div>
+
+      <div class="card-project">
+        <div class="card-project-name">Full-Stack CSM Activity App on BTP</div>
+        <div class="card-hook">"And here it is — a brand new log, proudly made by Joule."</div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-scores">
+        <div class="score-row">
+          <div class="score-label">Creativity</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-creativity);"></div></div>
+          <div class="score-num" style="color:var(--cr-creativity);">4</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Replicability</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:75%;background:var(--cr-replicability);"></div></div>
+          <div class="score-num" style="color:var(--cr-replicability);">3</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Storytelling</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:75%;background:var(--cr-storytelling);"></div></div>
+          <div class="score-num" style="color:var(--cr-storytelling);">3</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Impact</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-impact);"></div></div>
+          <div class="score-num" style="color:var(--cr-impact);">4</div>
+        </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-why">
+        <div class="why-block">
+          <div class="why-title">What they built</div>
+          <div class="why-text">
+            A real, deployed CSM activity tracker: <strong>EKX mockup → VS Code + Claude → hosted on BTP → Joule MCP integration</strong>. Live demo shows: log topics during calls, one-click PDF for the customer, then Joule cross-checks and drafts the follow-up email.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it ranked in the Top 10</div>
+          <div class="why-text">
+            The deepest technical implementation in the competition — a full-stack live app, not a prompt or a skill. Every layer (front-end, BTP hosting, Joule MCP agent) was built and shown working in real time. That level of execution separated it from the field.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it made the Final Five</div>
+          <div class="why-text">
+            Christophe didn't describe what AI could do — he <strong>shipped it</strong>. A production app, a genuine agentic workflow, and a scalable tool other CSMs can adopt. In a field of concepts and demos, this was a working product.
+          </div>
+        </div>
+      </div>
+
+      <div class="card-tags">
+        <span class="tag">BTP</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">Claude</span>
+        <span class="tag">Joule MCP</span>
+        <span class="tag">CSM</span>
+        <span class="tag">Full-Stack</span>
+      </div>
+    </div>
+
+    <!-- ── 5. Nils Charvin & Théo Barbero ── -->
+    <div class="finalist-card">
+      <div class="finalist-number"><span class="finalist-star"></span> Finalist #5 &mdash; 14 / 16</div>
+      <div class="card-header">
+        <div class="card-avatar">NC</div>
+        <div class="card-id">
+          <div class="card-name">Nils Charvin &amp; Théo Barbero</div>
+          <div class="card-location"><span class="flag">🇫🇷</span> France</div>
+        </div>
+        <div class="card-score-badge">14 / 16</div>
+      </div>
+
+      <div class="card-project">
+        <div class="card-project-name">Account Research Agent — From One Desk to Everyone's</div>
+        <div class="card-hook">"The research piled up, the accounts went quiet, and my coffee went cold."</div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-scores">
+        <div class="score-row">
+          <div class="score-label">Creativity</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:75%;background:var(--cr-creativity);"></div></div>
+          <div class="score-num" style="color:var(--cr-creativity);">3</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Replicability</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:75%;background:var(--cr-replicability);"></div></div>
+          <div class="score-num" style="color:var(--cr-replicability);">3</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Storytelling</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-storytelling);"></div></div>
+          <div class="score-num" style="color:var(--cr-storytelling);">4</div>
+        </div>
+        <div class="score-row">
+          <div class="score-label">Impact</div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:100%;background:var(--cr-impact);"></div></div>
+          <div class="score-num" style="color:var(--cr-impact);">4</div>
+        </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="card-why">
+        <div class="why-block">
+          <div class="why-title">What they built</div>
+          <div class="why-text">
+            An account research agent built in <strong>Claude Code</strong>, then migrated into <strong>Joule</strong> for team-wide adoption. Contacts are verified with sources — no invented names. One click, one agent, one complete brief.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it ranked in the Top 10</div>
+          <div class="why-text">
+            One of the best opening hooks in the competition. The personal-to-team adoption arc — built for one desk, shared across the team, pipeline started moving — is the rubric's definition of transformative impact. Powerful and understated.
+          </div>
+        </div>
+        <div class="why-block">
+          <div class="why-title">Why it made the Final Five</div>
+          <div class="why-text">
+            <strong>"I built it for one desk. One share later it was everyone's."</strong> That sentence captures exactly what this competition is about — tools that spread because they work. The organic team adoption, combined with a narrative arc that felt deeply human, earned its place in the final.
+          </div>
+        </div>
+      </div>
+
+      <div class="card-tags">
+        <span class="tag">Claude Code</span>
+        <span class="tag">Joule</span>
+        <span class="tag">Account Research</span>
+        <span class="tag">Team Adoption</span>
+        <span class="tag">Sales</span>
+      </div>
+    </div>
+
+  </div><!-- /finalists-grid -->
+</div><!-- /grid-section -->
+
+<footer>
+  <p>A(I) Can Do That!? &mdash; EMEA 2026 &nbsp;&middot;&nbsp; Scored across 159 submissions &nbsp;&middot;&nbsp; Rubric: Creativity, Replicability, Storytelling, Impact (max 16)</p>
+  <p style="margin-top:6px;color:#3a4555;">Generated by the A(I) Can Do That!? scoring agent &nbsp;&middot;&nbsp; SAP EMEA</p>
+</footer>
+
+</body>
+</html>
